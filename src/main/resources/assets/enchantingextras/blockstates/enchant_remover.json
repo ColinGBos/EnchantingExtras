@@ -1,0 +1,7 @@
+{
+  "variants":{
+    "": {
+      "model": "enchantingextras:block/enchant_remover"
+    }
+  }
+}
