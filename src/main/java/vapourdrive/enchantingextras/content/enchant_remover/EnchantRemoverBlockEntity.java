@@ -52,7 +52,7 @@ public class EnchantRemoverBlockEntity extends BlockEntity implements MenuProvid
     private final CombinedInvWrapper combined = new CombinedInvWrapper(vitaeInputHandler, vitaeExtractHandler, enchantedItemIngredientHandler, bookIngredientHandler, outputHandler);
     private final CombinedInvWrapper combinedOut = new CombinedInvWrapper(vitaeExtractHandler, outputHandler);
     private final ContainerData enchantRemoverData = new SimpleContainerData(2);
-    public final BlockEntityContentHolder VITAE = new BlockEntityContentHolder("vitae",0,
+    private final BlockEntityContentHolder VITAE = new BlockEntityContentHolder("vitae",0,
             ConfigSettings.ENCHANT_REMOVER_VITAE_STORAGE.get(), ConfigSettings.ENCHANT_REMOVER_PROCESS_TIME.get(), enchantRemoverData);
 
     public EnchantRemoverBlockEntity(BlockPos pos, BlockState blockState) {
@@ -69,19 +69,19 @@ public class EnchantRemoverBlockEntity extends BlockEntity implements MenuProvid
         if(this.hasLevel()) {
             progressProcess();
             if(!Objects.requireNonNull(getLevel()).hasNeighborSignal(this.worldPosition)) {
-                if (VITAE.getTimer() <= 0) {
+                if (getVITAE().getTimer() <= 0) {
                     startEnchantRemovalProcess();
                 }
             }
             if (this.getLevel().getGameTime() % 4 == 0) {
-                doVitaeExchangeProcess(100);
+                doVitaeExchangeProcess(ConfigSettings.VITAE_TABLET_TRANSFER_RATE.get());
             }
         }
     }
 
     public void startEnchantRemovalProcess() {
-        if(VITAE.getTimer() <= 0 && canWork()) {
-            VITAE.setTimer(VITAE.getProcessDuration());
+        if(getVITAE().getTimer() <= 0 && canWork()) {
+            getVITAE().setTimer(getVITAE().getProcessDuration());
         }
     }
 
@@ -100,12 +100,12 @@ public class EnchantRemoverBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private void progressProcess() {
-        if(VITAE.getTimer() > 0){
+        if(getVITAE().getTimer() > 0){
             if(!canWork()){
-                VITAE.setTimer(0);
+                getVITAE().setTimer(0);
             } else {
-                VITAE.tickTimer();
-                if (VITAE.getTimer() == 0) {
+                getVITAE().tickTimer();
+                if (getVITAE().getTimer() == 0) {
                     doEnchantRemovalProcess(Objects.requireNonNull(this.getLevel()).getRandom());
                 }
             }
@@ -261,7 +261,7 @@ public class EnchantRemoverBlockEntity extends BlockEntity implements MenuProvid
         vitaeExtractHandler.deserializeNBT(registries, tag.getCompound("invVitaeOut"));
         enchantedItemIngredientHandler.deserializeNBT(registries, tag.getCompound("invEnchantedItem"));
         bookIngredientHandler.deserializeNBT(registries, tag.getCompound("invBooks"));
-        VITAE.loadAdditional(tag);
+        getVITAE().loadAdditional(tag);
     }
 
     @Override
@@ -272,6 +272,6 @@ public class EnchantRemoverBlockEntity extends BlockEntity implements MenuProvid
         tag.put("invVitaeOut", vitaeExtractHandler.serializeNBT(registries));
         tag.put("invEnchantedItem", enchantedItemIngredientHandler.serializeNBT(registries));
         tag.put("invBooks", bookIngredientHandler.serializeNBT(registries));
-        VITAE.saveAdditional(tag);
+        getVITAE().saveAdditional(tag);
     }
 }

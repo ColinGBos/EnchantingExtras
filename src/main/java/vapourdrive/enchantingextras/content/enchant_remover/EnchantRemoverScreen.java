@@ -29,24 +29,6 @@ public class EnchantRemoverScreen extends AbstractBaseContainerScreen<EnchantRem
     }
 
     @Override
-    protected void init() {
-        super.init();
-//        if(ConfigSettings.ENCHANT_REMOVER_START_BUTTON.get()) {
-//            this.startProcessButton.setPosition(this.leftPos+54, this.topPos+60);
-//            this.startProcessButton.visible = !enchantMenu.isAuto();
-//            addRenderableWidget(startProcessButton);
-//        }
-    }
-
-    @Override
-    protected void containerTick() {
-        super.containerTick();
-//        if(ConfigSettings.ENCHANT_REMOVER_START_BUTTON.get()) {
-//            this.startProcessButton.visible = !enchantMenu.isAuto();
-//        }
-    }
-
-    @Override
     protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
         super.renderBg(graphics, partialTicks, mouseX, mouseY);
         int m = (int) (enchantMenu.getVitaePercentage() * (64));

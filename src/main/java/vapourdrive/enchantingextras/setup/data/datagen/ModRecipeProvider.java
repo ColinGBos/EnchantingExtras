@@ -40,5 +40,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_amethyst", has(Tags.Items.GEMS_AMETHYST))
                 .save(output);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Registration.MOB_SLAYER_ITEM.get())
+                .pattern("A A").pattern("SFS").pattern("EIE")
+                .define('A', Ingredient.of(Items.AMETHYST_BLOCK))
+                .define('S', Ingredient.of(Items.IRON_SWORD))
+                .define('F', Ingredient.of(Items.FURNACE))
+                .define('E', Ingredient.of(Items.ENDER_PEARL))
+                .define('I', getIngredientFromTag("c", "storage_blocks/iron"))
+                .unlockedBy("has_amethyst", has(Tags.Items.GEMS_AMETHYST))
+                .save(output);
+
     }
 }

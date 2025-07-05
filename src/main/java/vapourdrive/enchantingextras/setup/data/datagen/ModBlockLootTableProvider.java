@@ -25,5 +25,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         add(Registration.ENCHANT_REMOVER_BLOCK.get(), this::createNameableBlockEntityTable);
+        add(Registration.MOB_SLAYER_BLOCK.get(), this::createNameableBlockEntityTable);
     }
 }

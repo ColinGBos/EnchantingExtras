@@ -19,23 +19,19 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-//        tag(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL).addTags(BlockTags.NEEDS_IRON_TOOL);
-//        tag(ModTags.Blocks.INCORRECT_FOR_DUSKBLOOM_TOOL).addTags(BlockTags.INCORRECT_FOR_IRON_TOOL).remove(ModTags.Blocks.NEEDS_DUSKBLOOM_TOOL);
         this.registerCommonTags();
         this.registerMinecraftTags();
-
-
     }
 
     private void registerMinecraftTags() {
-//        tag(BlockTags.BEACON_BASE_BLOCKS).add(Registration.DUSKBLOOM_SHARD_BLOCK.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Registration.ENCHANT_REMOVER_BLOCK.get());
         tag(BlockTags.NEEDS_DIAMOND_TOOL).add(Registration.ENCHANT_REMOVER_BLOCK.get());
-            }
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Registration.MOB_SLAYER_BLOCK.get());
+        tag(BlockTags.NEEDS_IRON_TOOL).add(Registration.MOB_SLAYER_BLOCK.get());
+    }
 
     private void registerCommonTags() {
-//        tag(ModTags.Blocks.STORAGE_BLOCKS_DUSKBLOOM_GLOB).add(Registration.DUSKBLOOM_GLOB_BLOCK.get());
-//        tag(ModTags.Blocks.STORAGE_BLOCKS_DUSKBLOOM_SHARD).add(Registration.DUSKBLOOM_SHARD_BLOCK.get());
+
     }
 
 }

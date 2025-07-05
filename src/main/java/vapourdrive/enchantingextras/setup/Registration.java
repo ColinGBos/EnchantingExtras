@@ -32,6 +32,10 @@ import vapourdrive.enchantingextras.content.enchant_remover.EnchantRemoverBlock;
 import vapourdrive.enchantingextras.content.enchant_remover.EnchantRemoverBlockEntity;
 import vapourdrive.enchantingextras.content.enchant_remover.EnchantRemoverItem;
 import vapourdrive.enchantingextras.content.enchant_remover.EnchantRemoverMenu;
+import vapourdrive.enchantingextras.content.mob_slayer.MobSlayerBlock;
+import vapourdrive.enchantingextras.content.mob_slayer.MobSlayerBlockEntity;
+import vapourdrive.enchantingextras.content.mob_slayer.MobSlayerItem;
+import vapourdrive.enchantingextras.content.mob_slayer.MobSlayerMenu;
 import vapourdrive.vapourware.VapourWare;
 import vapourdrive.vapourware.shared.base.BaseInfoItem;
 
@@ -47,7 +51,7 @@ public class Registration {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> VITAE_DATA = DATA_COMPONENTS.registerComponentType(
             "vitae", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT)
     );
-    public static final DeferredBlock<Block> ENCHANT_REMOVER_BLOCK = BLOCKS.register("enchant_remover", () -> new EnchantRemoverBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST).mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(5.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> ENCHANT_REMOVER_BLOCK = BLOCKS.register("enchant_remover", () -> new EnchantRemoverBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST).mapColor(MapColor.STONE).instrument(NoteBlockInstrument.CHIME).strength(5.0F, 1200.0F).requiresCorrectToolForDrops()));
     public static final DeferredItem<BlockItem> ENCHANT_REMOVER_ITEM = ITEMS.register("enchant_remover", () -> new EnchantRemoverItem(ENCHANT_REMOVER_BLOCK.get(), new Item.Properties()));
     public static final Supplier<BlockEntityType<EnchantRemoverBlockEntity>> ENCHANT_REMOVER_BLOCK_ENTITY = BLOCK_ENTITIES.register("enchant_remover", () -> BlockEntityType.Builder.of(EnchantRemoverBlockEntity::new, ENCHANT_REMOVER_BLOCK.get()).build(null));
     public static final Supplier<MenuType<EnchantRemoverMenu>> ENCHANT_REMOVER_MENU = MENUS.register("enchant_remover",
@@ -58,6 +62,16 @@ public class Registration {
             }));
 
     public static final DeferredItem<BaseInfoItem> VITAE_TABLET = ITEMS.register("vitae_tablet", ()-> new VitaeTablet(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredBlock<Block> MOB_SLAYER_BLOCK = BLOCKS.register("mob_slayer", () -> new MobSlayerBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(5.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final DeferredItem<BlockItem> MOB_SLAYER_ITEM = ITEMS.register("mob_slayer", () -> new MobSlayerItem(MOB_SLAYER_BLOCK.get(), new Item.Properties()));
+    public static final Supplier<BlockEntityType<MobSlayerBlockEntity>> MOB_SLAYER_BLOCK_ENTITY = BLOCK_ENTITIES.register("mob_slayer", () -> BlockEntityType.Builder.of(MobSlayerBlockEntity::new, MOB_SLAYER_BLOCK.get()).build(null));
+    public static final Supplier<MenuType<MobSlayerMenu>> MOB_SLAYER_MENU = MENUS.register("mob_slayer",
+            () -> IMenuTypeExtension.create((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                Level world = inv.player.getCommandSenderWorld();
+                return new MobSlayerMenu(windowId, world, pos, inv, inv.player, new SimpleContainerData(3));
+            }));
 
     public static void init(IEventBus eventBus) {
         BLOCKS.register(eventBus);
@@ -71,12 +85,14 @@ public class Registration {
         // Add to ingredients tab
         if (event.getTab() == vapourdrive.vapourware.setup.Registration.VAPOUR_GROUP.get()) {
             event.accept(ENCHANT_REMOVER_ITEM.get().getDefaultInstance());
+            event.accept(MOB_SLAYER_ITEM.get().getDefaultInstance());
             event.accept(VITAE_TABLET.get());
         }
     }
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ENCHANT_REMOVER_BLOCK_ENTITY.get(), EnchantRemoverBlockEntity::getItemHandler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MOB_SLAYER_BLOCK_ENTITY.get(), MobSlayerBlockEntity::getItemHandler);
     }
 
 }

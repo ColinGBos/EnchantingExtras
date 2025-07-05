@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "enchantingextras:block/mob_slayer"
+    },
+    "facing=south,lit=false": {
+      "model": "enchantingextras:block/mob_slayer",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "enchantingextras:block/mob_slayer",
+      "y": 270
+    },
+    "facing=east,lit=false": {
+      "model": "enchantingextras:block/mob_slayer",
+      "y": 90
+    },
+    "facing=north,lit=true": {
+      "model": "enchantingextras:block/mob_slayer_lit"
+    },
+    "facing=south,lit=true": {
+      "model": "enchantingextras:block/mob_slayer_lit",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "enchantingextras:block/mob_slayer_lit",
+      "y": 270
+    },
+    "facing=east,lit=true": {
+      "model": "enchantingextras:block/mob_slayer_lit",
+      "y": 90
+    }
+  }
+}

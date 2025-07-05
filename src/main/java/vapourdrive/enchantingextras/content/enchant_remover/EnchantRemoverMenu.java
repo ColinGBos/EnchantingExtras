@@ -91,7 +91,7 @@ public class EnchantRemoverMenu extends AbstractBaseContainerMenu {
         ItemStack stack = slot.getItem();
         itemstack = stack.copy();
 
-        //Furnace outputs to Inventory
+        //Machine to Inventory
         if (index >= 36 && index <= 48) {
             EnchantingExtras.debugLog("From machine to player");
             if (!this.moveItemStackTo(stack, 27, 36, false)) {
@@ -138,32 +138,32 @@ public class EnchantRemoverMenu extends AbstractBaseContainerMenu {
 
     @OnlyIn(Dist.CLIENT)
     public int getCurrentVitae() {
-        return this.containerData.get(enchantRemoverBlockEntity.VITAE.getDataIndex());
+        return this.containerData.get(enchantRemoverBlockEntity.getVITAE().getDataIndex());
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getVitaePercentage() {
 //        return enchantRemoverBlockEntity.getVITAE().getPercentFull();
-        int i = this.containerData.get(enchantRemoverBlockEntity.VITAE.getDataIndex());
+        int i = this.containerData.get(enchantRemoverBlockEntity.getVITAE().getDataIndex());
         if (i == 0) {
             return 0;
         }
-        return (float) i / (float) enchantRemoverBlockEntity.VITAE.getMax();
+        return (float) i / (float) enchantRemoverBlockEntity.getVITAE().getMax();
     }
 
     @OnlyIn(Dist.CLIENT)
     public float getProgressPercentage() {
 //        return enchantRemoverBlockEntity.getVITAE().getProgressPercentage();
-        int i = this.containerData.get(enchantRemoverBlockEntity.VITAE.getDataIndex()+1);
+        int i = this.containerData.get(enchantRemoverBlockEntity.getVITAE().getDataIndex()+1);
         if (i == 0) {
             return 0;
         }
-        return (float) (enchantRemoverBlockEntity.VITAE.getProcessDuration() - i) / (float) enchantRemoverBlockEntity.VITAE.getProcessDuration();
+        return (float) (enchantRemoverBlockEntity.getVITAE().getProcessDuration() - i) / (float) enchantRemoverBlockEntity.getVITAE().getProcessDuration();
     }
 
     @OnlyIn(Dist.CLIENT)
     public int geMaxVitae() {
-        return enchantRemoverBlockEntity.VITAE.getMax();
+        return enchantRemoverBlockEntity.getVITAE().getMax();
     }
 
 //    public void startProcess() {

@@ -14,10 +14,19 @@ public class ConfigSettings {
 
     public static final String VITAE_TABLET = "vitae_tablet";
     public static ModConfigSpec.IntValue VITAE_TABLET_VITAE_STORAGE;
+    public static ModConfigSpec.IntValue VITAE_TABLET_TRANSFER_RATE;
 
     public static final String VITAE_GENERATION = "vitae_generation";
     public static ModConfigSpec.IntValue VITAE_PER_ENTITY_XP;
     public static ModConfigSpec.IntValue VITAE_PER_BLOCK_XP;
+
+    public static final String MOB_SLAYER = "mob_slayer";
+    public static ModConfigSpec.IntValue MOB_SLAYER_VITAE_STORAGE;
+    public static ModConfigSpec.IntValue MOB_SLAYER_FUEL_STORAGE;
+    public static ModConfigSpec.IntValue MOB_SLAYER_FUEL_TO_WORK;
+    public static ModConfigSpec.IntValue MOB_SLAYER_PROCESS_TIME;
+    public static ModConfigSpec.BooleanValue MOB_SLAYER_DAMAGES_TOOL;
+    public static ModConfigSpec.BooleanValue MOB_SLAYER_ATTACKS_PLAYERS;
 
     static {
         EnchantingExtras.LOGGER.info("Initiating Config for Enchanting Extras");
@@ -38,11 +47,21 @@ public class ConfigSettings {
 
         SERVER_BUILDER.comment("Vitae Tablet Settings").push(VITAE_TABLET);
         VITAE_TABLET_VITAE_STORAGE = SERVER_BUILDER.comment("Vitae Storage for the Vitae Tablet").defineInRange("vitaeTabletVitaeStorage", 25000, 250, 2500000);
+        VITAE_TABLET_TRANSFER_RATE = SERVER_BUILDER.comment("Rate at which the Vitae Tablet transfers to and from blocks that hold Vitae").defineInRange("vitaeTabletTransferRate", 100, 10, 10000);
         SERVER_BUILDER.pop();
 
         SERVER_BUILDER.comment("Vitae Generation Settings").push(VITAE_GENERATION);
         VITAE_PER_ENTITY_XP = SERVER_BUILDER.comment("Vitae generation from xp dropped from entities (0 to disable)").defineInRange("vitaeGenerationRateFromEntities", 25, 0, 2500);
         VITAE_PER_BLOCK_XP = SERVER_BUILDER.comment("Vitae generation from xp dropped from blocks (0 to disable)").defineInRange("vitaeGenerationRateFromBlocks", 10, 0, 2500);
+        SERVER_BUILDER.pop();
+
+        SERVER_BUILDER.comment("Mob Slayer Settings").push(MOB_SLAYER);
+        MOB_SLAYER_VITAE_STORAGE = SERVER_BUILDER.comment("Vitae Storage for the Mob Slayer").defineInRange("mobSlayerVitaeStorage", 25000, 250, 2500000);
+        MOB_SLAYER_FUEL_STORAGE = SERVER_BUILDER.comment("Fuel Storage for the Mob Slayer").defineInRange("mobSlayerFuelStorage", 100000, 250, 2500000);
+        MOB_SLAYER_FUEL_TO_WORK = SERVER_BUILDER.comment("Fuel for one base unit of work").defineInRange("mobSlayerFuelBaseConsumption", 1000, 10, 10000);
+        MOB_SLAYER_PROCESS_TIME = SERVER_BUILDER.comment("Tick interval for attacks (Attacks one mob once)").defineInRange("mobSlayerProcessInterval", 5, 1, 1000);
+        MOB_SLAYER_DAMAGES_TOOL = SERVER_BUILDER.comment("Does the mob slayer damage the tool on use?").define("mobSlayerDamagesTool", false);
+        MOB_SLAYER_ATTACKS_PLAYERS = SERVER_BUILDER.comment("Does the mob slayer attack players?").define("mobSlayerAttacksPlayers", true);
         SERVER_BUILDER.pop();
     }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "enchantingextras:block/mob_slayer_bottom",
+    "up": "enchantingextras:block/mob_slayer_top",
+    "north": "enchantingextras:block/mob_slayer_front",
+    "south": "enchantingextras:block/mob_slayer_back",
+    "east": "enchantingextras:block/mob_slayer_side",
+    "west": "enchantingextras:block/mob_slayer_side",
+    "particle": "enchantingextras:block/mob_slayer_side"
+  }
+}
